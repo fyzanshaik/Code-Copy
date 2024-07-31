@@ -1,0 +1,17 @@
+# Go binaries
+/backend
+
+# Node modules
+/frontend/node_modules
+
+# Logs
+*.log
+
+# Build outputs
+/backend/*.exe
+/backend/*
+/frontend/dist
+
+# OS-specific files
+.DS_Store
+Thumbs.db
