@@ -1,0 +1,9 @@
+root = "."
+tmp_dir = "tmp"
+[build]
+  bin = "bin/main"
+  cmd = "go run *.go"
+  full_bin = "./bin/main"
+[watch]
+  extensions = ["go"]
+  directories = ["."]
