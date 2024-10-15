@@ -8,8 +8,8 @@
 *.log
 
 # Build outputs
-/backend/*.exe
-/backend/*
+# /backend/*.exe
+# /backend/*
 /frontend/dist
 
 # OS-specific files
