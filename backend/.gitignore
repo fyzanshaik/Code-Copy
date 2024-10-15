@@ -15,10 +15,6 @@ obj/
 # Dependency directories
 /vendor/
 
-# Go-specific
-*.go
-!go.mod
-!go.sum
 
 # IDEs and editors
 .vscode/
