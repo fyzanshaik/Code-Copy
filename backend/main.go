@@ -81,7 +81,7 @@ func main() {
 	router.Use(rateLimiter())
 	router.Use(metricsMiddleware())
 	router.GET("/api/v1/program/:year/:semester/:class/:course/:filename", getCodeFile)
-	router.GET("/api/v1/download/:year/:semester/:class/:courfffse/:filename", downloadCodeFile)
+	router.GET("/api/v1/download/:year/:semester/:class/:course/:filename", downloadCodeFile)
 	router.GET("/api/v1/structure", handleDirectoryStructure)
 	router.GET("/api/v1/years", handleYears)
 	router.GET("/api/v1/years/semesters", handleSems)
