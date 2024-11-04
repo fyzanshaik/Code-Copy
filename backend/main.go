@@ -84,19 +84,7 @@ func metricsMiddleware() gin.HandlerFunc {
 }
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		log.Println("Warning: .env file not found, proceeding without it.")
-	}
-
-	if os.Getenv("GIN_MODE") == "" {
-		gin.SetMode(gin.ReleaseMode)
-	}
-
-	//PORT := os.Getenv("PORT")
-	// if PORT == "" {
-	// 	PORT = "8080"
-	// }
-	PORT := "8080"
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	initRedis()
 	router.Use(rateLimiter())
@@ -116,8 +104,18 @@ func main() {
 	router.GET("/metrics", getMetrics)
 	router.GET("/api/v1/version", getVersion)
 
-	log.Println("Server started running on :" + PORT)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	if err := router.Run(":" + port); err != nil {
+		log.Panicf("error: %s", err)
+	}
+
+	log.Println("Server started running on :" + port)
 
 	router.SetTrustedProxies(nil)
-	router.Run(":" + PORT)
+	if err := router.Run(":" + port); err != nil {
+		log.Panicf("error: %s", err)
+	}
 }
