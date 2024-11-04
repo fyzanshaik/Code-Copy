@@ -3,19 +3,28 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
+	"github.com/joho/godotenv"
 	"golang.org/x/time/rate"
 )
 
 var redisClient *redis.Client
 
 func initRedis() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading Env file")
+	}
+
+	redisUrlAddress := os.Getenv("REDIS_URL")
+
 	redisClient = redis.NewClient(&redis.Options{
-		Addr: "localhost:6379",
+		Addr: redisUrlAddress,
 	})
 }
 
@@ -75,6 +84,14 @@ func metricsMiddleware() gin.HandlerFunc {
 }
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading Env file")
+	}
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = "8080"
+	}
 
 	router := gin.Default()
 	initRedis()
@@ -95,8 +112,8 @@ func main() {
 	router.GET("/metrics", getMetrics)
 	router.GET("/api/v1/version", getVersion)
 
-	log.Println("Server started running on :8000")
+	log.Println("Server started running on :" + PORT)
 
 	router.SetTrustedProxies(nil)
-	router.Run(":8000")
+	router.Run(":" + PORT)
 }
