@@ -92,11 +92,11 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	PORT := os.Getenv("PORT")
-	if PORT == "" {
-		PORT = "8080"
-	}
-
+	//PORT := os.Getenv("PORT")
+	// if PORT == "" {
+	// 	PORT = "8080"
+	// }
+	PORT := "8080"
 	router := gin.Default()
 	initRedis()
 	router.Use(rateLimiter())
