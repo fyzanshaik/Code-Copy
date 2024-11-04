@@ -9,19 +9,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis/v8"
-	"github.com/joho/godotenv"
 	"golang.org/x/time/rate"
 )
 
 var redisClient *redis.Client
 
 func initRedis() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading Env file")
-	}
 
-	redisUrlAddress := os.Getenv("REDIS_URL")
+	redisUrlAddress := "localhost:6173"
 
 	redisClient = redis.NewClient(&redis.Options{
 		Addr: redisUrlAddress,
