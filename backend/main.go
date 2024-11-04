@@ -84,10 +84,12 @@ func metricsMiddleware() gin.HandlerFunc {
 }
 
 func main() {
-	if os.Getenv("RENDER") == "" {
-		if err := godotenv.Load(); err != nil {
-			log.Println("Warning: Could not load .env file")
-		}
+	if err := godotenv.Load(); err != nil {
+		log.Println("Warning: .env file not found, proceeding without it.")
+	}
+
+	if os.Getenv("GIN_MODE") == "" {
+		gin.SetMode(gin.ReleaseMode)
 	}
 
 	PORT := os.Getenv("PORT")
