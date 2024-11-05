@@ -24,7 +24,6 @@ func getCodeFile(c *gin.Context) {
 		return
 	}
 
-	// If not in cache, read from file
 	filePath := filePathHelper(c)
 	// fmt.Println("", filePath)
 	data, err := os.ReadFile(filePath)
@@ -33,7 +32,6 @@ func getCodeFile(c *gin.Context) {
 		return
 	}
 
-	// Store in cache for future requests
 	redisClient.Set(context.Background(), cacheKey, string(data), time.Hour)
 
 	c.JSON(http.StatusOK, gin.H{"Intro": "From File System", "Data": string(data)})
@@ -99,7 +97,6 @@ func getCacheStatus(c *gin.Context) {
 		return
 	}
 
-	// Parse the info string into a map
 	infoMap := make(map[string]string)
 	for _, line := range strings.Split(info, "\r\n") {
 		if strings.Contains(line, ":") {
@@ -144,14 +141,12 @@ func getHealth(c *gin.Context) {
 		},
 	}
 
-	// Check Redis
 	_, err := redisClient.Ping(ctx).Result()
 	if err != nil {
 		health["components"].(gin.H)["redis"] = "down"
 		health["status"] = "unhealthy"
 	}
 
-	// Check file system
 	_, err = os.Stat("./files")
 	if err != nil {
 		health["components"].(gin.H)["file_system"] = "down"
