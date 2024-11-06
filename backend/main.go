@@ -105,7 +105,6 @@ func main() {
 	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
 	}
-
 	log.Println("Server started running on :" + port)
 
 	router.SetTrustedProxies(nil)
