@@ -77,7 +77,6 @@ func metricsMiddleware() gin.HandlerFunc {
 		}
 	}
 }
-
 func main() {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
