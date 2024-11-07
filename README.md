@@ -16,20 +16,20 @@ The backend is implemented using Go with the Gin web framework and Redis for cac
 
 ### API Endpoints 📡
 
--  `GET /api/v1/program/:year/:semester/:class/:course/:filename`: Retrieve a code file.
--  `GET /api/v1/download/:year/:semester/:class/:course/:filename`: Download a code file.
--  `GET /api/v1/structure`: Retrieve directory structure.
--  `GET /api/v1/years`: Retrieve list of years.
--  `GET /api/v1/years/semesters`: Retrieve list of semesters.
--  `GET /api/v1/:year/:semester/:class/:course/:filename`: Handle metadata.
--  `GET /api/v1/course/:year/:semester/:class`: Retrieve courses.
--  `GET /api/v1/programs/:year/:semester/:class/:course`: Retrieve programs.
--  `GET /api/v1/metadata/:year/:semester/:class/:course/:filename`: Retrieve metadata.
--  `GET /api/v1/cache-status`: Retrieve cache status.
--  `POST /api/v1/clear-cache`: Clear the cache.
+-  `GET /program/:year/:semester/:class/:course/:filename`: Retrieve a code file.
+-  `GET /download/:year/:semester/:class/:course/:filename`: Download a code file.
+-  `GET /structure`: Retrieve directory structure.
+-  `GET /years`: Retrieve list of years.
+-  `GET /years/semesters`: Retrieve list of semesters.
+-  `GET /:year/:semester/:class/:course/:filename`: Handle metadata.
+-  `GET /course/:year/:semester/:class`: Retrieve courses.
+-  `GET /programs/:year/:semester/:class/:course`: Retrieve programs.
+-  `GET /metadata/:year/:semester/:class/:course/:filename`: Retrieve metadata.
+-  `GET /cache-status`: Retrieve cache status.
+-  `POST /clear-cache`: Clear the cache.
 -  `GET /health`: Health check.
 -  `GET /metrics`: Retrieve metrics.
--  `GET /api/v1/version`: Retrieve version information.
+-  `GET /version`: Retrieve version information.
 
 ### Installation and Setup 🛠️
 
@@ -55,7 +55,7 @@ The backend is implemented using Go with the Gin web framework and Redis for cac
 4. **Run the server:**
 
    ```sh
-   go run main.go
+   go run .
    ```
 
 5. **Ensure Redis is running:**
