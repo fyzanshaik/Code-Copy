@@ -20,7 +20,7 @@ func filePathHelper(c *gin.Context) (path string) {
 	// fmt.Println(year, semester, branch, courseName, fileName)
 
 	path = fmt.Sprintf("./files/%s/%s/%s/%s/%s", year, semester, branch, courseName, fileName)
-
+	fmt.Println(path)
 	return path
 }
 

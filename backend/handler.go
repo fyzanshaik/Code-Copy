@@ -14,6 +14,7 @@ import (
 func getCodeFile(c *gin.Context) {
 	cacheKey := fmt.Sprintf("code:%s:%s:%s:%s:%s", c.Param("year"), c.Param("semester"), c.Param("class"), c.Param("course"), c.Param("filename"))
 	// fmt.Println("", cacheKey)
+	
 	cachedData, err := redisClient.Get(context.Background(), cacheKey).Result()
 	fmt.Println("Redis error : ", err)
 	// fmt.Println("", cachedData)
