@@ -1,41 +1,36 @@
+
+/*Use HashSet to organize list of products and perform operations on them.*/
 import java.util.*;
 
 public class b9 {
-    public static void main(String args[]) {
-        // Creating HashSet
-        HashSet<String> set = new HashSet<String>();
-
-        // Adding Elements to HashSet - ignores duplicates
-        set.add("hyderabad");
-        set.add("hyderabad");
-        set.add("bangalore");
-        set.add("chennai");
-        set.add("kolkata");
-        set.add("kolkata");
-        set.add("pune");
-
-        Iterator<String> i = set.iterator();
-        while (i.hasNext()) {
-            System.out.println(i.next());
+    public static void main(String[] args) {
+        HashSet<Product> set = new HashSet<Product>(); // Creating Products
+        Product p1 = new Product(1010, "Mobile", 12345.75);
+        Product p2 = new Product(1012, "Watch", 2345.75);
+        Product p3 = new Product(1013, "wallet", 345.75);// Adding Books to HashSet
+        set.add(p1);
+        set.add(p2);
+        set.add(p3); // Accessing HashSet
+        System.out.println("The Products list is");
+        for (Product p : set) {
+            System.out.println(p.pid + " " + p.pname + " " + p.price);
         }
+        set.remove(p2);
+        System.out.println("The Products list after remove");
+        for (Product p : set) {
+            System.out.println(p.pid + " " + p.pname + " " + p.price);
+        }
+    }
+}
 
-        // Removing specific element from HashSet
-        set.remove("hyderabad");
-        // Displaying set
-        System.out.println("\n The list after remove ->" + set);
+class Product {
+    int pid;
+    String pname;
+    double price;
 
-        // adding another set
-        HashSet<String> set1 = new HashSet<String>();
-        set1.add("Panjab");
-        set1.add("Delhi");
-        set.addAll(set1);
-        System.out.println("\n Updated List is -> " + set);
-        // removing new set from list
-        set.removeAll(set1);
-        System.out.println("\n Updated List is -> " + set);
-        // Removing all the elements available in the set
-        set.clear();
-        System.out.println("\n After clear the set is -> " + set);
-
+    public Product(int pid, String pname, double price) {
+        this.pid = pid;
+        this.pname = pname;
+        this.price = price;
     }
 }

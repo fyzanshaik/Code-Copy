@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// tail
 // Check instructions at end of this file
 
 int main(int argc, char *argv[]) {
     FILE *fp;
     char *line;
     int len = 0;
-    int count = 0;
+    int count = 0, n, i;
     if (argc < 3) {
         printf("Insuffiecent Arguments");
         return -1;
@@ -19,14 +20,19 @@ int main(int argc, char *argv[]) {
     }
     while (getline(&line, &len, fp) != -1) {
         count++;
-        if (count > atoi(argv[1])) break;
-        printf("%s", line);
-        fflush(stdout);
+    }
+    printf("\n Total number of lines is %d \n", count);
+    rewind(fp);
+    n = count - atoi(argv[1]);
+    i = 0;
+    while (getline(&line, &len, fp) != -1) {
+        i++;
+        if (i > n) printf("%s", line);
     }
     fclose(fp);
     return (0);
 }
 
 // while compiling
-// gcc 8b.c
+// gcc 9c.c
 // ./a.out 3 file1.txt
