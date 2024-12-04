@@ -1,33 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
+int mutex = 1;
+int full = 0;
+int empty = 1;
+int x = 0;
+// Function to produce an item into a buffer
+void producer() {
+    --mutex;
+    ++full;
+    --empty;
 
-// Check instructions at end of this file
+    printf("Enter an item to produce");
+    scanf("%d", &x);  // Item produced
 
-int main(int argc, int argv[]) {
-    char ch;
-    FILE *fp1, *fp2;
-
-    fp1 = fopen(argv[1], "r");
-
-    if (fp1 == NULL) {
-        printf("Press any key to exit...\n");
-        exit(1);
-    }
-    fp2 = fopen(argv[2], "w");
-    if (fp2 == NULL) {
-        fclose(fp1);
-        printf("Press any key to exit...\n");
-        exit(0);
-    }
-    while ((ch = fgetc(fp1)) != EOF) fputc(ch, fp2);
-    printf("File copied successfully.\n");
-
-    fclose(fp1);
-    fclose(fp2);
-    return 0;
+    printf("\nProducer produces item %d", x);
+    ++mutex;
 }
 
+// Function to consume an item and remove it from buffer
+void consumer() {
+    --mutex;
+    --full;
+    ++empty;
+    printf("\nConsumer consumes  item %d", x);
+    x = 0;
+    ++mutex;
+}
 
-// while compiling
-// gcc 8a.c
-// ./a.out file1.txt file2.txt
+int main() {
+    int n, i;
+    printf(
+        "\n1. Press 1 for Producer"
+        "\n2. Press 2 for Consumer"
+        "\n3. Press 3 for Exit");
+
+    while (1) {
+        printf("\nEnter your choice:");
+        scanf("%d", &n);
+        switch (n) {
+            case 1:
+                if ((mutex == 1) && (empty != 0)) {
+                    producer();
+                } else {
+                    printf("Buffer is full!");
+                }
+                break;
+
+            case 2:
+                if ((mutex == 1) && (full != 0)) {
+                    consumer();
+                } else {
+                    printf("Buffer is empty!");
+                }
+                break;
+            case 3:
+                exit(0);
+                break;
+        }
+    }
+}
