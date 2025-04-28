@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -16,11 +18,23 @@ var redisClient *redis.Client
 
 func initRedis() {
 
-	redisUrlAddress := "localhost:6173"
+	ctx := context.Background()
 
-	redisClient = redis.NewClient(&redis.Options{
-		Addr: redisUrlAddress,
+	redisClient := redis.NewClient(&redis.Options{
+		Addr:     "redis-15997.c212.ap-south-1-1.ec2.redns.redis-cloud.com:15997",
+		Username: "default",
+		Password: "Z4JppRDlIc7sdpqXHujbyONIS8dkGbcQ",
+		DB:       0,
 	})
+
+	redisClient.Set(ctx, "foo", "bar", 0)
+	result, err := redisClient.Get(ctx, "foo").Result()
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(result)
 }
 
 func rateLimiter() gin.HandlerFunc {
